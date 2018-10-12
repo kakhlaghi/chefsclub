@@ -1,1 +1,5 @@
-class DishesController
+class DishesController < ApplicationController
+
+
+
+end

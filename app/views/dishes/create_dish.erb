@@ -1,0 +1,10 @@
+<form method="post" action="dishes">
+  <label>Dish Name:</lable>
+    <input type="text" name="name">
+
+  <% Genre.all.each do |genre| %>
+    <label><%= genre.name %></label>
+    <input type="checkbox" name="genres[]" value="<%= genre.id %>" id="<%= genre.name %>" <%='checked' if @song.genres.include?(genre) %>>
+  <% end %>
+
+</form>
