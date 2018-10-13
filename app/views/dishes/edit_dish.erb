@@ -1,0 +1,7 @@
+<h2>Edit <%=@dish.name%></h2>
+
+<form method="post" action="/dishes/<%=@dsih.id%>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <input type="text" name="name" value="<%= @dish.name %>">
+  <input type="submit" value="submit">
+</form>

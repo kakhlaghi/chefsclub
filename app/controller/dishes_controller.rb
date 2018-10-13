@@ -55,7 +55,7 @@ class DishesController < ApplicationController
       end
     end
 
-    patch '/dishes/:id' do
+    post '/dishes/:id' do
       if logged_in?
         if params[:content] == ""
           redirect to "/dishes/#{params[:id]}/edit"
@@ -76,7 +76,7 @@ class DishesController < ApplicationController
       end
     end
 
-    delete '/dishes/:id/delete' do
+    post '/dishes/:id/delete' do
       if logged_in?
         @dish = Dish.find_by_id(params[:id])
         if @dish && @dish.user == current_user

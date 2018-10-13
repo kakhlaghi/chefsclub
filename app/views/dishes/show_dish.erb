@@ -1,2 +1,9 @@
 
 <h2><%=@dish.name%> by <%=@dish.chefs.name%></h2>
+
+<form method="post" action="/dishes/<%=@dish.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Dish">
+</form>
+
+<a href="/dishes/<%=@dish.id%>/edit">Edit Dish </a>
