@@ -1,0 +1,6 @@
+<p> Here are your dishes, <%= @chef.username %>
+<% @chef.dishes.each do |dish| %>
+  <div>
+    <%= dish.name %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-class Chefscontroller < ApplicationController
+class ChefsController < ApplicationController
 
   get '/chefs/:slug' do
     @chef = Chef.find_by_slug(params[:slug])
@@ -7,7 +7,7 @@ class Chefscontroller < ApplicationController
 
   get '/signup' do
     if !logged_in?
-      erb :'users/create_user'
+      erb :'chefs/create_chef'
     else
       redirect to '/dishes'
     end
