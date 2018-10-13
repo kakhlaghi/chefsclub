@@ -1,6 +1,6 @@
 class Chef < ActiveRecord::Base
   has_many :dishes
-
+  has_secure_password
   def slug
     name.downcase.gsub(" ","-")
   end
