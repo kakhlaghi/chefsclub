@@ -1,3 +1,4 @@
+require 'pry'
 class ChefsController < ApplicationController
 
   get '/chefs/:slug' do
@@ -17,16 +18,19 @@ class ChefsController < ApplicationController
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
      redirect to '/signup'
    else
-     @chef = Chef.new(:username => params[:username], :email => params[:email], :password => params[:password])
+     @chef = Chef.new
+     @chef.username = params[:username]
+     @chef.email = params[:email]
+     @chef.password = params[:password]
      @chef.save
-     session[:chef_id] = @chef.id
+     session[:username] = @chef.username
      redirect to '/dishes'
    end
   end
 
   get '/login' do
       if !logged_in?
-        erb :'chef/login'
+        erb :'chefs/login'
       else
         redirect to '/dishes'
       end
@@ -35,7 +39,7 @@ class ChefsController < ApplicationController
     post '/login' do
       chef = Chef.find_by(:username => params[:username])
       if chef && chef.authenticate(params[:password])
-        session[:chef_id] = chef.id
+        session[:username] = chef.username
         redirect to "/dishes"
       else
         redirect to '/signup'

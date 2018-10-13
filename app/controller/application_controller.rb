@@ -14,11 +14,11 @@ class ApplicationController < Sinatra::Base
 
     helpers do
       def logged_in?
-        !!current_user
+        !!session[:username]
       end
 
       def current_user
-         @current_user ||= Chef.find_by(id: session[:chef_id]) if session[:chef_id]
+         @current_user ||= Chef.find_by(username: session[:username]) if session[:username]
       end
     end
 

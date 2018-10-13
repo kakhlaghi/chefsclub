@@ -4,13 +4,13 @@ class DishesController < ApplicationController
         @dishes = Dish.all
         erb :'dishes/dishes'
       else
-        redirect to '/dishes'
+        redirect to '/login'
       end
     end
 
     get '/dishes/new' do
       if logged_in?
-        erb :'dshes/create_dishes'
+        erb :'dishes/create_dishes'
       else
         redirect to '/login'
       end
