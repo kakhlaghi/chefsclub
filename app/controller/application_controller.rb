@@ -6,6 +6,7 @@ class ApplicationController < Sinatra::Base
       set :public_folder, 'public'
       set :views, 'app/views'
       enable :sessions
+      set :session_secret, 'super secret'
     end
 
     get '/' do
@@ -18,7 +19,7 @@ class ApplicationController < Sinatra::Base
       end
 
       def current_user
-        Chef.find(session[:id])
+        @current_user ||= Chef.find_by(username: session[:username])
       end
     end
 

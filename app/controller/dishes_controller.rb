@@ -1,10 +1,10 @@
 require 'pry'
 class DishesController < ApplicationController
-  use Rack::Flash
 
   get '/dishes' do
-    binding.pry
+    #binding.pry
       if logged_in?
+        #binding.pry
       #if !session[:email].empty?
         @dishes = Dish.all
         erb :'/dishes/dishes'
@@ -15,7 +15,7 @@ class DishesController < ApplicationController
 
     get '/dishes/new' do
       if logged_in?
-        erb :'dishes/create_dishes'
+        erb :'dishes/create_dish'
       else
         redirect to '/login'
       end
@@ -26,9 +26,10 @@ class DishesController < ApplicationController
         if params[:content] == ""
           redirect to "/dishes/new"
         else
-          @dish = current_user.dishes.build(:name => params[:name], :chef_id => current_user.id)
+          @dish = current_user.dishes.create(:name => params[:name], :chef_id => current_user.id)
+          binding.pry
           if @dish.save
-            flash[:message] = "Successfully created dish."
+            #flash[:message] = "Successfully created dish."
             redirect to "/dishes/#{@dish.id}"
           else
             redirect to "/dishes/new"
@@ -51,7 +52,7 @@ class DishesController < ApplicationController
     get '/dishes/:id/edit' do
       if logged_in?
         @dish = Dish.find_by_id(params[:id])
-        if @dish && @dish.user == current_user
+        if @dish && @dish.chef == current_user
           erb :'dishes/edit_dish'
         else
           redirect to '/dishes'
@@ -61,14 +62,14 @@ class DishesController < ApplicationController
       end
     end
 
-    post '/dishes/:id' do
+    patch '/dishes/:id' do
       if logged_in?
         if params[:content] == ""
           redirect to "/dishes/#{params[:id]}/edit"
         else
           @dish = Dish.find_by_id(params[:id])
-          if @dish && @dish.user == current_user
-            if @dish.update(content: params[:content])
+          if @dish && @dish.chef = current_user
+            if @dish.update(name: params[:name])
               redirect to "/dishes/#{@dish.id}"
             else
               redirect to "/dishes/#{@dish.id}/edit"
@@ -82,10 +83,10 @@ class DishesController < ApplicationController
       end
     end
 
-    post '/dishes/:id/delete' do
+    delete '/dishes/:id/delete' do
       if logged_in?
         @dish = Dish.find_by_id(params[:id])
-        if @dish && @dish.user == current_user
+        if @dish && @dish.chef == current_user
           @dish.delete
         end
         redirect to '/dishes'
