@@ -38,8 +38,6 @@ class ChefsController < ApplicationController
 
     post '/login' do
       @chef = Chef.find_by(:username => params[:username])
-      binding.pry
-
       if @chef && @chef.authenticate(params[:password])
         session[:username] = @chef.username
         redirect to "/dishes"

@@ -1,9 +1,13 @@
+require 'pry'
 class DishesController < ApplicationController
+  use Rack::Flash
+
   get '/dishes' do
+    binding.pry
       if logged_in?
       #if !session[:email].empty?
         @dishes = Dish.all
-        erb :'dishes/dishes'
+        erb :'/dishes/dishes'
       else
         redirect to '/login'
       end
@@ -24,6 +28,7 @@ class DishesController < ApplicationController
         else
           @dish = current_user.dishes.build(:name => params[:name], :chef_id => current_user.id)
           if @dish.save
+            flash[:message] = "Successfully created dish."
             redirect to "/dishes/#{@dish.id}"
           else
             redirect to "/dishes/new"
