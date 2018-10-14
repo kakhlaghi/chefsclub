@@ -37,9 +37,11 @@ class ChefsController < ApplicationController
     end
 
     post '/login' do
-      chef = Chef.find_by(:username => params[:username])
-      if chef && chef.authenticate(params[:password])
-        session[:username] = chef.username
+      @chef = Chef.find_by(:username => params[:username])
+      binding.pry
+
+      if @chef && @chef.authenticate(params[:password])
+        session[:username] = @chef.username
         redirect to "/dishes"
       else
         redirect to '/signup'

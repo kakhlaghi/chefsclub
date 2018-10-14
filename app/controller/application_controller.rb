@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
       end
 
       def current_user
-         @current_user ||= Chef.find_by(username: session[:username]) if session[:username]
+        Chef.find(session[:id])
       end
     end
 
