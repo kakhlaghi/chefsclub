@@ -14,6 +14,8 @@ class DishesController < ApplicationController
     end
 
     get '/dishes/new' do
+      @errors = session[:errors]
+      session[:errors] = nil
       if logged_in?
         erb :'dishes/create_dish'
       else
@@ -23,15 +25,17 @@ class DishesController < ApplicationController
 
     post '/dishes' do
       if logged_in?
-        if params[:content] == ""
+        if params[:name] == ""
+          error = "The name is blank"
+          session[:errors] = error
           redirect to "/dishes/new"
         else
           @dish = current_user.dishes.create(:name => params[:name], :chef_id => current_user.id)
-          binding.pry
           if @dish.save
-            #flash[:message] = "Successfully created dish."
             redirect to "/dishes/#{@dish.id}"
           else
+            error = @dish.errors
+            session[:errors] = error
             redirect to "/dishes/new"
           end
         end

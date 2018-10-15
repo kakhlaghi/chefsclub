@@ -1,4 +1,5 @@
 require './config/environment'
+require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
 
@@ -17,6 +18,8 @@ class ApplicationController < Sinatra::Base
       def logged_in?
         !!session[:username]
       end
+
+
 
       def current_user
         @current_user ||= Chef.find_by(username: session[:username])
