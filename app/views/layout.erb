@@ -9,7 +9,9 @@
       <h1>Chefs Club</h1>
       <%= yield %>
 
-
+      <%if logged_in?%>
+        <a href="/logout"> Log Out </a>
+      <%end%>
     </div>
 
   </body>
