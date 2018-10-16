@@ -4,7 +4,7 @@
 
      <p>Welcome, <%=current_user.username%></p><br>
      <a href="/dishes/new"> Create Dish </a>
-     <a href="/chefs/<%=@chef.slug%>">View your dishes!</a>
+     <a href="/chefs/<%=current_user.slug%>">View your dishes!</a>
 
    <% else %>
     <h2>Welcome, New User</h2>
