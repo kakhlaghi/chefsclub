@@ -3,7 +3,8 @@ class ChefsController < ApplicationController
 
   get '/chefs/:slug' do
     @chef = Chef.find_by_slug(params[:slug])
-    erb :'/chefs/show'
+    @dishes = Dish.all
+    erb :'/dishes/dishes'
   end
 
   get '/signup' do

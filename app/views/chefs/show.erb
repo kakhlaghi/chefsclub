@@ -1,6 +1,10 @@
-<p> Here are your dishes, <%= @chef.username %>
+<p> Welcome, <%=current_user.username%>. Here are your dishes!</p>
+<h2> Dishes: </h2>
+
 <% @chef.dishes.each do |dish| %>
   <div>
-    <a href ="/dishes/<%=dish.id%>/edit"><%= dish.name %></a>
+      <a href ="/dishes/<%=dish.id%>"><%= dish.name %></a>
   </div>
 <% end %>
+<br>
+<a href="/dishes/new"> Create Dish </a><br>
