@@ -22,7 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create an account with an email, username, and password and starting adding your dishes. As simple as that!
+Click on a dish to delete or edit.
 
 ## Development
 
