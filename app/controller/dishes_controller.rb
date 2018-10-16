@@ -4,8 +4,6 @@ class DishesController < ApplicationController
   get '/dishes' do
     #binding.pry
       if logged_in?
-        #binding.pry
-      #if !session[:email].empty?
         @dishes = Dish.all
         erb :'/dishes/dishes'
       else
