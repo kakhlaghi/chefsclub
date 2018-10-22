@@ -4,7 +4,6 @@ class DishesController < ApplicationController
   get '/dishes' do
     #binding.pry
       if logged_in?
-
         @dishes = current_user.dishes
         erb :'/dishes/dishes'
       else

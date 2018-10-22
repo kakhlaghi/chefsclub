@@ -16,20 +16,20 @@ class ChefsController < ApplicationController
   end
 
   post '/signup' do
-    if params[:username] == "" || params[:email] == "" || params[:password] == ""
+    if params[:username] == "" || params[:email] == "" || params[:password] == "" || Chef.find_by(:username => params[:username])
      redirect to '/signup'
    else
-     @chef = Chef.new
+     @chef = Chef.new(params[:chef])
      @chef.username = params[:username]
      @chef.email = params[:email]
      @chef.password = params[:password]
      @chef.save
-     session[:username] = @chef.username
+     session[:username] = @chef.username #change
      redirect to '/dishes'
    end
   end
 
-  get '/login' do
+    get '/login' do
       if !logged_in?
         erb :'chefs/login'
       else
@@ -47,12 +47,12 @@ class ChefsController < ApplicationController
       end
     end
 
-    get '/logout' do
-      if logged_in?
-        session.destroy
-        redirect to '/login'
-      else
-        redirect to '/'
-      end
+  get '/logout' do
+    if logged_in?
+      session.destroy
+      redirect to '/login'
+    else
+      redirect to '/'
+    end
   end
 end
